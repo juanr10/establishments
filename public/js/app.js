@@ -49950,6 +49950,13 @@ __webpack_require__.r(__webpack_exports__);
 
 document.addEventListener('DOMContentLoaded', function () {
   if (document.querySelector('#map')) {
+    var fillInputs = function fillInputs(result) {
+      document.querySelector('#address').value = result.address.Address || '';
+      document.querySelector('#town').value = result.address.Neighborhood || '';
+      document.querySelector('#lat').value = result.latlng.lat || '';
+      document.querySelector('#lng').value = result.latlng.lng || '';
+    };
+
     var lat = 41.37579;
     var lng = 2.15084;
     var map = L.map('map').setView([lat, lng], 16);
@@ -49961,13 +49968,24 @@ document.addEventListener('DOMContentLoaded', function () {
     marker = new L.marker([lat, lng], {
       draggable: true,
       autoPan: true
-    }).addTo(map); //Detects Marker's movement
+    }).addTo(map); //Geocode service
+
+    var geocodeService = L.esri.Geocoding.geocodeService(); //Detects Marker's movement
 
     marker.on('moveend', function (e) {
       marker = e.target;
       var position = marker.getLatLng(); //Center Marker on the map
 
-      map.panTo(new L.LatLng(position.lat, position.lng));
+      map.panTo(new L.LatLng(position.lat, position.lng)); //Reverse Geocoding
+
+      geocodeService.reverse().latlng(position, 16).run(function (error, result) {
+        // console.log(error);
+        // console.log(result);
+        //Show direction
+        marker.bindPopup(result.address.LongLabel);
+        marker.openPopup();
+        fillInputs(result);
+      });
     });
   }
 });
