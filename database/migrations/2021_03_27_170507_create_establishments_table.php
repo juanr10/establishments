@@ -15,8 +15,8 @@ class CreateEstablishmentsTable extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
-            $table->name();
-            $table->slug();
+            $table->string('name');
+            $table->string('slug');
             $table->timestamps();
         });
 
