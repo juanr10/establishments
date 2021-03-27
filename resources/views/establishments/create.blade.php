@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('styles')
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
+@endsection
+
 @section('content')
     <div class="container">
         <h1 class="text-center-mt-4">
@@ -64,9 +68,18 @@
                     <input name="address" type="text" class="form-control" placeholder="Dirección del establecimiento">
                 </div>
                 <p class="text-secondary mt-3 mb-3 text-justify">
-                    El asistente colocará una dirección estimada. Por favor, mueva el Indicador hacia el lugar exacto del establecimiento.
+                    El asistente colocará una dirección estimada. Por favor, mueva el Marcador hacia el lugar exacto de su establecimiento.
                 </p>
+
+                <div class="form-group">
+                    <div id="map" style="height: 400px;">
+                    </div>
+                </div>
             </fieldset>
         </form>
     </div>
+@endsection
+
+@section('scripts')
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
 @endsection
