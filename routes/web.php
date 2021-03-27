@@ -19,4 +19,11 @@ Route::get('/', function () {
 
 Auth::routes(['verify' => true]);
 
-Route::get('/home', 'HomeController@index')->name('home');
+/**
+ * Establishments Routes
+ */
+Route::group(['middleware' => ['auth', 'verified']], function () {
+    Route::get('/establishments/create', 'EstablishmentController@create')->name('establishments.create');
+    Route::get('/establishments/edit', 'EstablishmentController@edit')->name('establishments.edit');
+});
+
