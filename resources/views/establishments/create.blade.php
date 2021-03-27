@@ -21,13 +21,13 @@
                     <label for="name">Nombre</label>
                     <input name="name" type="text" class="form-control @error('name') is-invalid
                     @enderror" placeholder="Nombre del establecimiento" value={{ old('name') }}>
-                </div>
 
-                @error('name')
-                    <div class="invalid-feedback">
-                        {{ $message }}
-                    </div>
-                @enderror
+                    @error('name')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
 
                 <div class="form-group">
                     <label for="category">Categoría</label>
@@ -37,25 +37,25 @@
                         <option value={{ $category->id }} {{ old('category') == $category->id ? 'selected' : ''}}>{{ $category->name }}</option>
                         @endforeach
                     </select>
-                </div>
 
-                @error('category')
-                    <div class="invalid-feedback">
-                        {{ $message }}
-                    </div>
-                @enderror
+                    @error('category')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
 
                 <div class="form-group">
                     <label for="main_image">Imagen Principal</label>
                     <input name="main_image" type="file" class="form-control @error('main_image') is-invalid
                     @enderror" value={{ old('main_image') }}>
-                </div>
 
-                @error('main_image')
-                    <div class="invalid-feedback">
-                        {{ $message }}
-                    </div>
-                @enderror
+                    @error('main_image')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
             </fieldset>
 
 
@@ -64,8 +64,8 @@
                     Ubicación
                 </legend>
                 <div class="form-group">
-                    <label for="address">Dirección</label>
-                    <input name="address" type="text" class="form-control" placeholder="Dirección del establecimiento">
+                    <label for="address-search">Dirección</label>
+                    <input name="address-search" type="text" class="form-control" placeholder="Dirección del establecimiento">
                 </div>
                 <p class="text-secondary mt-3 mb-3 text-justify">
                     El asistente colocará una dirección estimada. Por favor, mueva el Marcador hacia el lugar exacto de su establecimiento.
@@ -75,6 +75,33 @@
                     <div id="map" style="height: 400px;">
                     </div>
                 </div>
+
+                <p class="information">Por favor, confirme que los siguientes campos son correctos:</p>
+
+                <div class="form-group">
+                    <label for="address">Dirección</label>
+                    <input type="text" name="address" id="address" class="form-control @error('address') is-invalid @enderror" placeholder="Dirección" value={{ old('address') }}>
+
+                    @error('address')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+
+                <div class="form-group">
+                    <label for="town">Población</label>
+                    <input type="text" name="town" id="town" class="form-control @error('town') is-invalid @enderror" placeholder="Población" value={{ old('town') }}>
+
+                    @error('town')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+
+                <input type="hidden" id="lat" name="lat" value={{ old('lat') }}>
+                <input type="hidden" id="lng" name="lng" value={{ old('lng') }}>
             </fieldset>
         </form>
     </div>

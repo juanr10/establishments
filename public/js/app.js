@@ -49950,15 +49950,25 @@ __webpack_require__.r(__webpack_exports__);
 
 document.addEventListener('DOMContentLoaded', function () {
   if (document.querySelector('#map')) {
-    var lat = 20.666332695977;
-    var lng = -103.392177745699;
+    var lat = 41.37579;
+    var lng = 2.15084;
     var map = L.map('map').setView([lat, lng], 16);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map); // Add Marker
 
     var marker;
-    marker = new L.marker([lat, lng]).addTo(map);
+    marker = new L.marker([lat, lng], {
+      draggable: true,
+      autoPan: true
+    }).addTo(map); //Detects Marker's movement
+
+    marker.on('moveend', function (e) {
+      marker = e.target;
+      var position = marker.getLatLng(); //Center Marker on the map
+
+      map.panTo(new L.LatLng(position.lat, position.lng));
+    });
   }
 });
 
